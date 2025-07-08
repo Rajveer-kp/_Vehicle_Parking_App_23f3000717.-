@@ -1,0 +1,9 @@
+flask
+flask_sqlalchemy
+flask_cors
+werkzeug
+pyjwt
+celery
+flask-mail
+flask-apscheduler
+jinja2
