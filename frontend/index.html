@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle Parking System</title>
+  
+  <!-- Bootstrap Icons CDN (fallback if package not installed) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+  
+  <style>
+    /* Loading styles */
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+    
+    .loading-spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 0.3em solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin: 0 auto 1rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-logo {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading screen (shown until Vue app loads) -->
+  <div id="loading" class="loading-container">
+    <div class="loading-content">
+      <div class="loading-logo">🚗</div>
+      <h1>Vehicle Parking System</h1>
+      <div class="loading-spinner"></div>
+      <p>Loading application...</p>
+    </div>
+  </div>
+  
+  <!-- Vue app container -->
+  <div id="app" style="display: none;"></div>
+  
+  <script type="module" src="/src/main.js"></script>
+  
+  <script>
+    // Hide loading screen when Vue app is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const loading = document.getElementById('loading');
+        const app = document.getElementById('app');
+        
+        // Check if Vue app has content
+        const checkVueApp = setInterval(function() {
+          if (app && app.children.length > 0) {
+            loading.style.display = 'none';
+            app.style.display = 'block';
+            clearInterval(checkVueApp);
+          }
+        }, 100);
+        
+        // Fallback: hide loading after 10 seconds regardless
+        setTimeout(function() {
+          loading.style.display = 'none';
+          app.style.display = 'block';
+          clearInterval(checkVueApp);
+        }, 10000);
+      }, 500);
+    });
+  </script>
+</body>
+</html>
